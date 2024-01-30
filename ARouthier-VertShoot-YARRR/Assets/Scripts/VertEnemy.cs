@@ -27,4 +27,11 @@ public class VertEnemy : MonoBehaviour
     void FixedUpdate(){
         
     }
+
+    void OnCollisionEnter2D(UnityEngine.Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Despawn")){
+            Destroy(gameObject);
+        }
+    }
 }

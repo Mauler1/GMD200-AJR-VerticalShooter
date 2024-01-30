@@ -10,12 +10,26 @@ public class GameManager : MonoBehaviour
 
     public BoxCollider2D sideSpawner;
 
+    public SpawnVertEnemy script;
+
+    private bool canSpawn = true;
+
     private void Awake(){
         instance = this;
     }
 
+    void Update(){
+        if(canSpawn){
+            StartCoroutine(CoVertEnemy());
+        }
+    }
+
     private IEnumerator CoVertEnemy(){
-        yield return new WaitForSeconds(2f);
-        //spawn vert enemy
+        canSpawn = false;
+        for(int i = 0; i < 1; i++){
+            script.SpawnEnemy();
+            yield return new WaitForSeconds(2f);
+        }
+        canSpawn = true;
     }
 }

@@ -18,8 +18,13 @@ public class Cannonball : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision){
-        if(collision.tag == "Despawn"){
+        if(collision.CompareTag("Despawn"))
+        {
             Destroy(gameObject);
+        }
+        else if(collision.CompareTag("Enemy")){
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
         }
     }
 }
