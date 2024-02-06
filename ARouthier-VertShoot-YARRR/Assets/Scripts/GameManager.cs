@@ -21,13 +21,26 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI scoreText;
 
-//maxs parts
+    [SerializeField] private TextMeshProUGUI timerText;
 
+    public float timer = 240.0f;
 
+    private bool timeRunning = false;
+
+    private void OnEnable(){
+        PlayerHealth.healthChanged += HealthChange;
+    }
+
+    private void OnDisable(){
+        PlayerHealth.healthChanged -= HealthChange;
+    }
 
     private void Awake(){
         instance = this;
+    }
 
+    void Start(){
+        timeRunning = true;
     }
 
     void Update(){
@@ -35,13 +48,22 @@ public class GameManager : MonoBehaviour
             StartCoroutine(CoVertEnemy());
         }
         scoreText.text = score.ToString();
+        timerText.text = TimerFormat(timer);
+        if(timeRunning){
+            if(timer > 0){
+                timer -= Time.deltaTime;
+            }
+            else{
+                SceneManager.LoadScene(2);
+            }
+        }
     }
 
     private IEnumerator CoVertEnemy(){
         canSpawn = false;
         for(int i = 0; i < 1; i++){
             script.SpawnEnemy();
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1.5f);
         }
         canSpawn = true;
     }
@@ -50,8 +72,18 @@ public class GameManager : MonoBehaviour
         score++;
     }
 
+    private string TimerFormat(float timer){
+        float minutes = Mathf.FloorToInt(timer/60);
+        float seconds = Mathf.FloorToInt(timer%60);
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    private void HealthChange(int obj){
+        SceneManager.LoadScene(3);
+    }
 
 
+    /*
     //UI Button Functions
     public void GameStartUI(){
    SceneManager.LoadScene(0);
@@ -59,7 +91,7 @@ public class GameManager : MonoBehaviour
     public void GameEndUI(){
 
     }
-
+    */
 
 
 

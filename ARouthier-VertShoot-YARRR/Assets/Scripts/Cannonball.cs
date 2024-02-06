@@ -7,6 +7,8 @@ public class Cannonball : MonoBehaviour
 {
     [SerializeField] private GameObject explosion;
 
+    [SerializeField] private AudioClip explosionSFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,7 @@ public class Cannonball : MonoBehaviour
             Destroy(gameObject);
             Destroy(collision.gameObject);
             Instantiate(explosion, transform.position, transform.rotation);
+            AudioSource.PlayClipAtPoint(explosionSFX, transform.position, 0.3f);
             GameManager.instance.addPoint();
         }
     }
