@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Cannonball : MonoBehaviour
 {
+    [SerializeField] private GameObject explosion;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,8 @@ public class Cannonball : MonoBehaviour
         else if(collision.CompareTag("Enemy")){
             Destroy(gameObject);
             Destroy(collision.gameObject);
+            Instantiate(explosion, transform.position, transform.rotation);
+            GameManager.instance.addPoint();
         }
     }
 }
