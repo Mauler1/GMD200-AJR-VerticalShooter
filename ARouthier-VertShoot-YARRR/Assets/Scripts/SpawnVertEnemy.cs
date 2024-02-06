@@ -24,6 +24,7 @@ public class SpawnVertEnemy : MonoBehaviour
     }
 
     public void SpawnEnemy(){
+        //spawning within spawn box parameters
         float minX = box.size.x - box.size.x*6;
         float maxX = box.size.x + box.size.x*6;
         float y = box.transform.position.y;

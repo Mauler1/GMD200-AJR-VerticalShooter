@@ -21,12 +21,13 @@ public class PlayerShooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButton("Fire1") && canShoot){
+        if(Input.GetButton("Fire1") && canShoot){ //hold to shoot!!!
             StartCoroutine(shotTimer(bulletTime));
         }
     }
 
-    private IEnumerator shotTimer(float bulletDelay){ //plus param for bullet number (burst fire)
+    //time between shots coroutine
+    private IEnumerator shotTimer(float bulletDelay){
         canShoot = false;
         for(int i = 0; i < 1; i++){
             Rigidbody2D bulletRB = Instantiate(bulletPrefab, shotLocation.position, Quaternion.identity);
