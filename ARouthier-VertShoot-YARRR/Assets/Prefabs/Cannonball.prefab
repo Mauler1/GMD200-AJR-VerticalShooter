@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 8818765118584844150, guid: 37473928fad9ead4eab186c3a9e27138, type: 3}
+  explosionSFX: {fileID: 8300000, guid: 7f7ea6058a3422e4d9fa2a7cd0c50eb6, type: 3}
 --- !u!96 &-8121447754101710415
 TrailRenderer:
   serializedVersion: 3
