@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Camera cam;
 
-    private float speed = 5f;
+    private float speed = 7f;
     ///////////////////////////////////////////
 
 

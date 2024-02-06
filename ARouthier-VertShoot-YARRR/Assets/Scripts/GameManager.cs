@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.TestTools;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,12 +13,15 @@ public class GameManager : MonoBehaviour
 
     public BoxCollider2D sideSpawner;
 
-    public SpawnVertEnemy script;
+    public SpawnVertEnemy vertEnemyScript;
 
+    public SpawnVertEnemy rockScript;
 
     private int score = 0;
 
-    private bool canSpawn = true;
+    private bool canSpawnShip = true;
+
+    private bool canSpawnRock = true;
 
     [SerializeField] private TextMeshProUGUI scoreText;
 
@@ -44,8 +48,11 @@ public class GameManager : MonoBehaviour
     }
 
     void Update(){
-        if(canSpawn){
-            StartCoroutine(CoVertEnemy());
+        if(canSpawnShip){
+            StartCoroutine(CoVertEnemy(vertEnemyScript));
+        }
+        if(canSpawnRock && timer<180){
+            StartCoroutine(CoRock(rockScript));
         }
         scoreText.text = score.ToString();
         timerText.text = TimerFormat(timer);
@@ -59,13 +66,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator CoVertEnemy(){
-        canSpawn = false;
+    private IEnumerator CoVertEnemy(SpawnVertEnemy script){
+        canSpawnShip = false;
         for(int i = 0; i < 1; i++){
             script.SpawnEnemy();
             yield return new WaitForSeconds(1.5f);
         }
-        canSpawn = true;
+        canSpawnShip = true;
+    }
+
+    private IEnumerator CoRock(SpawnVertEnemy script){
+        canSpawnRock = false;
+        for(int i = 0; i < 1; i++){
+            script.SpawnEnemy();
+            yield return new WaitForSeconds(1.75f);
+        }
+        canSpawnRock = true;
     }
 
     public void addPoint(){
